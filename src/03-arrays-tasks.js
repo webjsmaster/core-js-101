@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable array-callback-return */
 /* ********************************************************************************************
  *                                                                                            *
  * Please read the following tutorial before implementing tasks:                               *
@@ -541,8 +543,18 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const resultMap = new Map();
+  array.filter((value1, index, array) => {
+    if (!resultMap.has(keySelector(value1))) {
+      let valueArr = array.filter((value2) => keySelector(value1) === keySelector(value2));
+      valueArr = valueArr.map((value) => valueSelector(value));
+      resultMap.set(keySelector(value1), valueArr);
+    }
+  });
+
+
+  return resultMap;
 }
 
 
